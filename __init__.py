@@ -7,7 +7,7 @@ import os
 
 key = os.environ.get('detaKey')
 deta = Deta(key)
-db = deta.Base('main')
+db = deta.Base('mainTest')
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -73,7 +73,7 @@ def fhWebhooks():
     booking = {'BOOKING ID':bookingID, 'HORA':hora, 'FECHA':fecha,'PAX':pax, 'TOTAL BRUTO':bruto,
     'TOTAL NETO':neto, 'AFILIADO':affiliate, 'PRODUCTO':item}
     print(booking)
-    bookingEntry = db.put(booking, bookingID)
+    bookingEntry = db.put(booking)
     return jsonify(bookingEntry, 201)
 
 if __name__ == '__main__':
