@@ -73,7 +73,7 @@ def fhWebhooks():
     booking = {'BOOKING ID':str(bookingID), 'HORA':str(hora), 'FECHA':str(fecha),'PAX':int(pax), 'TOTAL BRUTO':float(bruto),
     'TOTAL NETO':float(neto), 'AFILIADO':str(affiliate), 'PRODUCTO':str(item)}
     print(booking)
-    bookingEntry = db.put(booking)
+    bookingEntry = db.put(booking, str(bookingID))
     return jsonify(bookingEntry, 201)
 
 if __name__ == '__main__':
