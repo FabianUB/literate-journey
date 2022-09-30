@@ -6,8 +6,8 @@ from deta import Deta
 import os
 
 key = os.environ.get('detaKey')
-deta = Deta('a0kv6ay3_MBndet58XcwtGCWVntnKqyF743Wcixkt')
-db = deta.Base('mainTest')
+deta = Deta(key)
+db = deta.Base('main')
 
 app = Flask(__name__)
 cors = CORS(app)
