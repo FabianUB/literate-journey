@@ -70,8 +70,8 @@ def fhWebhooks():
     neto = data['booking']['invoice_price_display']
     pax = data['booking']['customer_count']
 
-    booking = {'BOOKING ID':bookingID, 'HORA':hora, 'FECHA':fecha,'PAX':pax, 'TOTAL BRUTO':bruto,
-    'TOTAL NETO':neto, 'AFILIADO':affiliate, 'PRODUCTO':item}
+    booking = {'BOOKING ID':str(bookingID), 'HORA':str(hora), 'FECHA':str(fecha),'PAX':int(pax), 'TOTAL BRUTO':float(bruto),
+    'TOTAL NETO':float(neto), 'AFILIADO':str(affiliate), 'PRODUCTO':str(item)}
     print(booking)
     bookingEntry = db.put(booking)
     return jsonify(bookingEntry, 201)
