@@ -63,7 +63,10 @@ def fhWebhooks():
     data = request.json
     bookingID = data['booking']['pk']
     item = nameItem[data['booking']['availability']['item']['name']]
-    affiliate = data['booking']['affiliate_company']['name']
+    try:
+        affiliate = data['booking']['affiliate_company']['name']
+    except:
+        affiliate = ''
     fecha = parse(data['booking']['availability']['start_at']).strftime("%Y-%m-%d")
     hora = parse(data['booking']['availability']['start_at']).strftime("%H:%M%p").lower()
     bruto = data['booking']['receipt_total_display']
