@@ -6,7 +6,7 @@ from deta import Deta
 import os
 
 key = os.environ.get('detaKey')
-deta = Deta(key)
+deta = Deta('a0kv6ay3_MBndet58XcwtGCWVntnKqyF743Wcixkt')
 db = deta.Base('mainTest')
 
 app = Flask(__name__)
@@ -72,9 +72,27 @@ def fhWebhooks():
     bruto = data['booking']['receipt_total_display']
     neto = data['booking']['invoice_price_display']
     pax = data['booking']['customer_count']
+    ciStatus = data['booking']['customers']
+    checkedin = 0
+    noshow = 0
+    none = 0
+    try:
+        for x in range(0, len(ciStatus)):
+            status =  data['booking']['customers'][x]["checkin_status"]["name"]
+            if status == "checked in":
+                checkedin += 1
+            elif status == "no-show":
+                noshow += 1
+            else:
+                none += 1
+    except:
+        none = pax
+
+    
 
     booking = {'BOOKING ID':str(bookingID), 'HORA':str(hora), 'FECHA':str(fecha),'PAX':int(pax), 'TOTAL BRUTO':float(bruto),
-    'TOTAL NETO':float(neto), 'AFILIADO':str(affiliate), 'PRODUCTO':str(item)}
+    'TOTAL NETO':float(neto), 'AFILIADO':str(affiliate), 'PRODUCTO':str(item), 'CHECKED-IN':int(checkedin), 'NO-SHOW':int(noshow), 
+    'NONE':int(none)}
     print(booking)
     bookingEntry = db.put(booking, str(bookingID))
     return jsonify(bookingEntry, 201)
