@@ -77,4 +77,4 @@ def fhWebhooks():
     return jsonify(bookingEntry, 201)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
