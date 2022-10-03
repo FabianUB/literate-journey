@@ -1,3 +1,4 @@
+import asyncio
 from flask import Flask,request,json,jsonify
 from flask_cors import CORS, cross_origin
 import datetime
@@ -58,6 +59,12 @@ nameItem = {
 def hello():
     return 'Webhooks with Python'
 
+async def put_item(item, key):
+    async_db = deta.AsyncBase("main")
+    bookingEntry = await async_db.put(item,key)
+    await async_db.close()
+    return bookingEntry
+
 @app.route('/fh-test',methods=['POST'])
 def fhWebhooks():
     data = request.json
@@ -94,7 +101,7 @@ def fhWebhooks():
     'TOTAL NETO':float(neto), 'AFILIADO':str(affiliate), 'PRODUCTO':str(item), 'CHECKED-IN':int(checkedin), 'NO-SHOW':int(noshow), 
     'NONE':int(none)}
     print(booking)
-    bookingEntry = db.put(booking, str(bookingID))
+    bookingEntry = put_item(booking, str(bookingID))
     return jsonify(bookingEntry, 201)
 
 if __name__ == '__main__':
