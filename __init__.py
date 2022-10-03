@@ -101,8 +101,8 @@ def fhWebhooks():
     'TOTAL NETO':float(neto), 'AFILIADO':str(affiliate), 'PRODUCTO':str(item), 'CHECKED-IN':int(checkedin), 'NO-SHOW':int(noshow), 
     'NONE':int(none)}
     print(booking)
-    bookingEntry = put_item(booking, str(bookingID))
-    return jsonify(bookingEntry, 201)
+    put_item(booking, str(bookingID))
+    return jsonify(booking, 201)
 
 if __name__ == '__main__':
     app.run(debug=True)
