@@ -80,6 +80,7 @@ def fhWebhooks():
     neto = data['booking']['invoice_price_display']
     pax = data['booking']['customer_count']
     ciStatus = data['booking']['customers']
+    status = data['booking']['status']
     checkedin = 0
     noshow = 0
     none = 0
@@ -95,14 +96,16 @@ def fhWebhooks():
     except:
         none = pax
 
-    
-
-    booking = {'BOOKING ID':str(bookingID), 'HORA':str(hora), 'FECHA':str(fecha),'PAX':int(pax), 'TOTAL BRUTO':float(bruto),
-    'TOTAL NETO':float(neto), 'AFILIADO':str(affiliate), 'PRODUCTO':str(item), 'CHECKED-IN':int(checkedin), 'NO-SHOW':int(noshow), 
-    'NONE':int(none)}
-    print(booking)
-    put_item(booking, str(bookingID))
-    return jsonify(booking, 201)
+    if status == 'rebooked' or status == 'cancelled':
+        db.delete(str(bookingID))
+        return jsonify('Booking cancelado', 201)
+    else:
+        booking = {'BOOKING ID':str(bookingID), 'HORA':str(hora), 'FECHA':str(fecha),'PAX':int(pax), 'TOTAL BRUTO':float(bruto),
+        'TOTAL NETO':float(neto), 'AFILIADO':str(affiliate), 'PRODUCTO':str(item), 'CHECKED-IN':int(checkedin), 'NO-SHOW':int(noshow), 
+        'NONE':int(none)}
+        print(booking)
+        put_item(booking, str(bookingID))
+        return jsonify(booking, 201)
 
 if __name__ == '__main__':
     app.run(debug=True)
