@@ -59,15 +59,15 @@ nameItem = {
 def hello():
     return 'Webhooks with Python'
 
-async def put_item(item, key):
-    async_db = deta.AsyncBase("main")
-    bookingEntry = await async_db.put(item,key)
-    await async_db.close()
+def put_item(item, key):
+    async_db = deta.Base("main")
+    bookingEntry = db.put(item,key)
     return bookingEntry
 
 @app.route('/fh-test',methods=['POST'])
 def fhWebhooks():
     data = request.json
+    print(data)
     bookingID = data['booking']['pk']
     item = nameItem[data['booking']['availability']['item']['name']]
     try:
