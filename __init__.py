@@ -60,7 +60,7 @@ def hello():
     return 'Webhooks with Python'
 
 def put_item(item, key):
-    async_db = deta.Base("main")
+    db = deta.Base("main")
     bookingEntry = db.put(item,key)
     return bookingEntry
 
