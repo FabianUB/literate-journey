@@ -103,7 +103,7 @@ def fhWebhooks():
         booking = {'BOOKING ID':str(bookingID), 'HORA':str(hora), 'FECHA':str(fecha),'PAX':int(pax), 'TOTAL BRUTO':float(bruto),
         'TOTAL NETO':float(neto), 'AFILIADO':str(affiliate), 'PRODUCTO':str(item), 'CHECKED-IN':int(checkedin), 'NO-SHOW':int(noshow), 
         'NONE':int(none),  'COSTES FIJOS': '','COSTES VARIABLES': '','EXTRA NUMERICO': '', 'EXTRA NUMERICO TOTAL': '','EXTRA TEXTO': '',
-        'PROVEEDORES FIJOS': '', 'PROVEEDORES VARIABLES': '', 'REAV': '', 'RESULTADO': '',
+        'PROVEEDORES FIJOS': '', 'PROVEEDORES VARIABLES': '', 'REAV': '', 'RESULTADO': '', 'EDITADO':False
         }
         print(booking)
         put_item(booking, str(bookingID))
