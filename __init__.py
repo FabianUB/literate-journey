@@ -102,7 +102,9 @@ def fhWebhooks():
     else:
         booking = {'BOOKING ID':str(bookingID), 'HORA':str(hora), 'FECHA':str(fecha),'PAX':int(pax), 'TOTAL BRUTO':float(bruto),
         'TOTAL NETO':float(neto), 'AFILIADO':str(affiliate), 'PRODUCTO':str(item), 'CHECKED-IN':int(checkedin), 'NO-SHOW':int(noshow), 
-        'NONE':int(none)}
+        'NONE':int(none),  'COSTES FIJOS': '','COSTES VARIABLES': '','EXTRA NUMERICO': '', 'EXTRA NUMERICO TOTAL': '','EXTRA TEXTO': '',
+        'PROVEEDORES FIJOS': '', 'PROVEEDORES VARIABLES': '', 'REAV': '', 'RESULTADO': '',
+        }
         print(booking)
         put_item(booking, str(bookingID))
         return jsonify(booking, 201)
