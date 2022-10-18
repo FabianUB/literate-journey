@@ -66,48 +66,51 @@ def put_item(item, key):
 
 @app.route('/fh-test',methods=['POST'])
 def fhWebhooks():
-    data = request.json
-    print(data)
-    bookingID = data['booking']['pk']
-    item = nameItem[data['booking']['availability']['item']['name']]
     try:
-        affiliate = data['booking']['affiliate_company']['name']
-    except:
-        affiliate = ''
-    fecha = parse(data['booking']['availability']['start_at']).strftime("%Y-%m-%d")
-    hora = parse(data['booking']['availability']['start_at']).strftime("%H:%M%p").lower()
-    bruto = data['booking']['receipt_total_display']
-    neto = data['booking']['invoice_price_display']
-    pax = data['booking']['customer_count']
-    ciStatus = data['booking']['customers']
-    status = data['booking']['status']
-    checkedin = 0
-    noshow = 0
-    none = 0
-    try:
-        for x in range(0, len(ciStatus)):
-            status =  data['booking']['customers'][x]["checkin_status"]["name"]
-            if status == "checked in":
-                checkedin += 1
-            elif status == "no-show":
-                noshow += 1
-            else:
-                none += 1
-    except:
-        none = pax
+        data = request.json
+        print(data)
+        bookingID = data['booking']['pk']
+        item = nameItem[data['booking']['availability']['item']['name']]
+        try:
+            affiliate = data['booking']['affiliate_company']['name']
+        except:
+            affiliate = ''
+        fecha = parse(data['booking']['availability']['start_at']).strftime("%Y-%m-%d")
+        hora = parse(data['booking']['availability']['start_at']).strftime("%H:%M%p").lower()
+        bruto = data['booking']['receipt_total_display']
+        neto = data['booking']['invoice_price_display']
+        pax = data['booking']['customer_count']
+        ciStatus = data['booking']['customers']
+        status = data['booking']['status']
+        checkedin = 0
+        noshow = 0
+        none = 0
+        try:
+            for x in range(0, len(ciStatus)):
+                status =  data['booking']['customers'][x]["checkin_status"]["name"]
+                if status == "checked in":
+                    checkedin += 1
+                elif status == "no-show":
+                    noshow += 1
+                else:
+                    none += 1
+        except:
+            none = pax
 
-    if status == 'rebooked' or status == 'cancelled':
-        db.delete(str(bookingID))
-        return jsonify('Booking cancelado', 201)
-    else:
-        booking = {'BOOKING ID':str(bookingID), 'HORA':str(hora), 'FECHA':str(fecha),'PAX':int(pax), 'TOTAL BRUTO':float(bruto),
-        'TOTAL NETO':float(neto), 'AFILIADO':str(affiliate), 'PRODUCTO':str(item), 'CHECKED-IN':int(checkedin), 'NO-SHOW':int(noshow), 
-        'NONE':int(none),  'COSTES FIJOS': '','COSTES VARIABLES': '','EXTRA NUMERICO': '', 'EXTRA NUMERICO TOTAL': '','EXTRA TEXTO': '',
-        'PROVEEDORES FIJOS': '', 'PROVEEDORES VARIABLES': '', 'REAV': '', 'RESULTADO': '', 'EDITADO':False
-        }
-        print(booking)
-        put_item(booking, str(bookingID))
-        return jsonify(booking, 201)
+        if status == 'rebooked' or status == 'cancelled':
+            db.delete(str(bookingID))
+            return 'Booking Cancelado', 201
+        else:
+            booking = {'BOOKING ID':str(bookingID), 'HORA':str(hora), 'FECHA':str(fecha),'PAX':int(pax), 'TOTAL BRUTO':float(bruto),
+            'TOTAL NETO':float(neto), 'AFILIADO':str(affiliate), 'PRODUCTO':str(item), 'CHECKED-IN':int(checkedin), 'NO-SHOW':int(noshow), 
+            'NONE':int(none),  'COSTES FIJOS': '','COSTES VARIABLES': '','EXTRA NUMERICO': '', 'EXTRA NUMERICO TOTAL': '','EXTRA TEXTO': '',
+            'PROVEEDORES FIJOS': '', 'PROVEEDORES VARIABLES': '', 'REAV': '', 'RESULTADO': '', 'EDITADO':False
+            }
+            print(booking)
+            put_item(booking, str(bookingID))
+            return jsonify(booking, 201)
+    except:
+        return 'Error', 400
 
 if __name__ == '__main__':
     app.run(debug=True)
