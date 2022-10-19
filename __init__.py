@@ -68,7 +68,6 @@ def put_item(item, key):
 def fhWebhooks():
     try:
         data = request.json
-        print(data)
         bookingID = data['booking']['pk']
         item = nameItem[data['booking']['availability']['item']['name']]
         try:
@@ -87,16 +86,16 @@ def fhWebhooks():
         none = 0
         try:
             for x in range(0, len(ciStatus)):
-                status =  data['booking']['customers'][x]["checkin_status"]["name"]
-                if status == "checked in":
+                statusBooking =  data['booking']['customers'][x]["checkin_status"]["name"]
+                if statusBooking == "checked in":
                     checkedin += 1
-                elif status == "no-show":
+                elif statusBooking == "no-show":
                     noshow += 1
                 else:
                     none += 1
         except:
             none = pax
-
+        print(status)
         if status == 'rebooked' or status == 'cancelled':
             db.delete(str(bookingID))
             return 'Booking Cancelado', 201
@@ -104,9 +103,9 @@ def fhWebhooks():
             booking = {'BOOKING ID':str(bookingID), 'HORA':str(hora), 'FECHA':str(fecha),'PAX':int(pax), 'TOTAL BRUTO':float(bruto),
             'TOTAL NETO':float(neto), 'AFILIADO':str(affiliate), 'PRODUCTO':str(item), 'CHECKED-IN':int(checkedin), 'NO-SHOW':int(noshow), 
             'NONE':int(none),  'COSTES FIJOS': '','COSTES VARIABLES': '','EXTRA NUMERICO': '', 'EXTRA NUMERICO TOTAL': '','EXTRA TEXTO': '',
-            'PROVEEDORES FIJOS': '', 'PROVEEDORES VARIABLES': '', 'REAV': '', 'RESULTADO': '', 'EDITADO':False
+            'PROVEEDORES FIJOS': '', 'PROVEEDORES VARIABLES': '', 'REAV': '', 'RESULTADO': '', 'EDITADO':False, 'NOMBRE A MOSTRAR FIJOS':'',
+            'NOMBRE A MOSTRAR VARIABLES':''
             }
-            print(booking)
             put_item(booking, str(bookingID))
             return jsonify(booking, 201)
     except:
