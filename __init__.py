@@ -108,8 +108,8 @@ def fhWebhooks():
             'PROVEEDORES FIJOS': '', 'PROVEEDORES VARIABLES': '', 'REAV': '', 'RESULTADO': '', 'EDITADO':False, 'NOMBRE A MOSTRAR FIJOS':'',
             'NOMBRE A MOSTRAR VARIABLES':''
             }
-            put_item(booking, str(bookingID))
-            return jsonify(booking, 201)
+            bookingEntry = put_item(booking, str(bookingID))
+            return jsonify(bookingEntry, 201)
     except:
         return 'Error', 400
 
