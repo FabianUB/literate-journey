@@ -61,6 +61,8 @@ def hello():
 
 def put_item(item, key):
     db = deta.Base("main")
+    print(key)
+    print(item)
     bookingEntry = db.put(item,key)
     return bookingEntry
 
