@@ -22,6 +22,7 @@ nameItem = {
     'Montserrat Monastery & Hiking Experience':'BCNMOHAM',
     'Montserrat Monastery & Horse Riding Experience':'BCNMORAM',
     'Wine & Cava with Tapas & 4WD Vineyards Experience':'BCNPENAM',
+    "eBike tour from Barcelona's coastline to the Vineyards & Wine tasting":'BCNALEFD',
     '360º Barcelona SkyWalk: Helicopter Flight, Walking Tour, & Boat Cruise Premium Small Group':'BCNSKYAM',
     '360º Barcelona eBike: city ride on eBike with Cable Car ticket & Sailing trip':'BCNEBIAM',
     'eBike Highlights Tour & Parc Guell skip the line ticket':'BCNHSPARK',
