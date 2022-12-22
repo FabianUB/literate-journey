@@ -17,7 +17,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 nameItem = {
-    'Barcelona Helicopter Flight 7 Minutes':'BCNHEL06',
+    'Barcelona Helicopter Flight 6 Minutes':'BCNHEL06',
     'Montserrat Hot-Air Balloon Experience & Optional Monastery Visit':'BCNBALAM',
     'Montserrat Monastery & Hiking Experience':'BCNMOHAM',
     'Montserrat Monastery & Horse Riding Experience':'BCNMORAM',
