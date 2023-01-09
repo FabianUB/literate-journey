@@ -54,7 +54,8 @@ nameItem = {
     'Sailing trip from Lisboa to Cascais and city visit':'LISCASSA',
     'Lisboa Wine tour with 4WD vineyards experience':'LISWINES',
     'Sintra with Pena Palace and Winery Experience from Lisbon':'LISSIWIN',
-    'Setúbal & Beach Horse Riding from Lisbon':'LISCOHOR'
+    'Setúbal & Beach Horse Riding from Lisbon':'LISCOHOR',
+    "Barcelona's Panoramic Helicopter Flight 11 Minutes":'BCNHEL11'
 }
 @app.route('/')
 def hello():
